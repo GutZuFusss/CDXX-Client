@@ -381,6 +381,7 @@ else()
   set(WEBSOCKETS_INCLUDE_DIRS)
 endif()
 find_package(Lua)
+find_package(LuaBridge)
 
 
 if(TARGET_OS AND TARGET_OS STREQUAL "mac")
@@ -460,6 +461,7 @@ if(WEBSOCKETS)
   show_dependency_status("Websockets" WEBSOCKETS)
 endif()
 show_dependency_status("Lua" LUA)
+show_dependency_status("LuaBridge" LUABRIDGE)
 
 if(CLIENT AND NOT(CURL_FOUND))
   message(SEND_ERROR "You must install Curl to compile DDNet")
@@ -1815,7 +1817,7 @@ if(CLIENT)
   )
   set(CLIENT_SRC ${ENGINE_CLIENT} ${PLATFORM_CLIENT} ${GAME_CLIENT} ${GAME_EDITOR} ${GAME_GENERATED_CLIENT})
 
-  set(DEPS_CLIENT ${DEPS} ${GLEW_DEP} ${PNGLITE_DEP} ${WAVPACK_DEP})
+  set(DEPS_CLIENT ${DEPS} ${GLEW_DEP} ${PNGLITE_DEP} ${WAVPACK_DEP} ${LUABRIDGE_DEP})
 
   # Libraries
   set(LIBS_CLIENT
@@ -1828,6 +1830,7 @@ if(CLIENT)
     ${WAVPACK_LIBRARIES}
     ${FFMPEG_LIBRARIES}
     ${LUA_LIBRARIES}
+    ${LUABRIDGE_LIBRARIES}
 
     # Order of these three is important.
     ${OPUSFILE_LIBRARIES}
