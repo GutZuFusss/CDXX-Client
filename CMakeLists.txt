@@ -380,6 +380,7 @@ else()
   set(WEBSOCKETS_LIBRARIES)
   set(WEBSOCKETS_INCLUDE_DIRS)
 endif()
+find_package(Lua)
 
 
 if(TARGET_OS AND TARGET_OS STREQUAL "mac")
@@ -458,6 +459,7 @@ show_dependency_status("Zlib" ZLIB)
 if(WEBSOCKETS)
   show_dependency_status("Websockets" WEBSOCKETS)
 endif()
+show_dependency_status("Lua" LUA)
 
 if(CLIENT AND NOT(CURL_FOUND))
   message(SEND_ERROR "You must install Curl to compile DDNet")
@@ -495,6 +497,9 @@ if(CLIENT AND NOT(OPUSFILE_FOUND))
 endif()
 if(CLIENT AND NOT(SDL2_FOUND))
   message(SEND_ERROR "You must install SDL2 to compile the DDNet client")
+endif()
+if(CLIENT AND NOT(LUA_FOUND))
+  message(SEND_ERROR "You must install Lua to compile the DDNet client")
 endif()
 if(NOT(GTEST_FOUND))
   if(DOWNLOAD_GTEST)
@@ -1332,6 +1337,7 @@ set(COPY_FILES
   ${SQLite3_COPY_FILES}
   ${FFMPEG_COPY_FILES}
   ${WEBSOCKETS_COPY_FILES}
+  ${LUA_COPY_FILES}
 )
 file(COPY ${COPY_FILES} DESTINATION .)
 
@@ -1821,6 +1827,7 @@ if(CLIENT)
     ${SDL2_LIBRARIES}
     ${WAVPACK_LIBRARIES}
     ${FFMPEG_LIBRARIES}
+    ${LUA_LIBRARIES}
 
     # Order of these three is important.
     ${OPUSFILE_LIBRARIES}
@@ -1872,6 +1879,7 @@ if(CLIENT)
     ${SDL2_INCLUDE_DIRS}
     ${WAVPACK_INCLUDE_DIRS}
     ${FFMPEG_INCLUDE_DIRS}
+    ${LUA_INCLUDE_DIRS}
 
     ${PLATFORM_CLIENT_INCLUDE_DIRS}
   )
