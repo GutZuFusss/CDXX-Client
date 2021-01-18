@@ -38,8 +38,8 @@
 
 #pragma once
 
-#include <LuaBridge/detail/Config.h>
-#include <LuaBridge/detail/TypeTraits.h>
+#include <detail/Config.h>
+#include <detail/TypeTraits.h>
 
 #include <cassert>
 

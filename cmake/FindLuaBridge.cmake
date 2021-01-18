@@ -31,12 +31,13 @@ if(NOT LUABRIDGE_FOUND)
     detail/LuaHelpers.h
     detail/LuaRef.h
     detail/Namespace.h
+    detail/Security.h
     detail/Stack.h
     detail/TypeList.h
     detail/TypeTraits.h
     detail/Userdata.h
   )
-  add_library(luabridge EXCLUDE_FROM_ALL OBJECT ${LUABRIDGE_SRC})
+  #add_library(luabridge INTERFACE ${LUABRIDGE_SRC})
   set(LUABRIDGE_INCLUDEDIR ${LUABRIDGE_SRC_DIR})
   target_include_directories(luabridge PRIVATE ${LUABRIDGE_INCLUDEDIR})
 

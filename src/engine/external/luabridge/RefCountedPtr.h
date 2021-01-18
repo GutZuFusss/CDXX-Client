@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include <LuaBridge/RefCountedObject.h>
+#include <RefCountedObject.h>
 
 #include <unordered_map>
 

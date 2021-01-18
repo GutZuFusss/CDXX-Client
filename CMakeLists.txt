@@ -381,8 +381,6 @@ else()
   set(WEBSOCKETS_INCLUDE_DIRS)
 endif()
 find_package(Lua)
-find_package(LuaBridge)
-
 
 if(TARGET_OS AND TARGET_OS STREQUAL "mac")
   find_program(CMAKE_OTOOL otool)
@@ -461,7 +459,6 @@ if(WEBSOCKETS)
   show_dependency_status("Websockets" WEBSOCKETS)
 endif()
 show_dependency_status("Lua" LUA)
-show_dependency_status("LuaBridge" LUABRIDGE)
 
 if(CLIENT AND NOT(CURL_FOUND))
   message(SEND_ERROR "You must install Curl to compile DDNet")
@@ -1678,6 +1675,8 @@ if(CLIENT)
     input.cpp
     input.h
     keynames.h
+    lua.cpp
+    lua.h
     notifications.cpp
     notifications.h
     opengl_sl.cpp
@@ -1817,7 +1816,7 @@ if(CLIENT)
   )
   set(CLIENT_SRC ${ENGINE_CLIENT} ${PLATFORM_CLIENT} ${GAME_CLIENT} ${GAME_EDITOR} ${GAME_GENERATED_CLIENT})
 
-  set(DEPS_CLIENT ${DEPS} ${GLEW_DEP} ${PNGLITE_DEP} ${WAVPACK_DEP} ${LUABRIDGE_DEP})
+  set(DEPS_CLIENT ${DEPS} ${GLEW_DEP} ${PNGLITE_DEP} ${WAVPACK_DEP})
 
   # Libraries
   set(LIBS_CLIENT
@@ -1830,7 +1829,6 @@ if(CLIENT)
     ${WAVPACK_LIBRARIES}
     ${FFMPEG_LIBRARIES}
     ${LUA_LIBRARIES}
-    ${LUABRIDGE_LIBRARIES}
 
     # Order of these three is important.
     ${OPUSFILE_LIBRARIES}
@@ -1871,6 +1869,7 @@ if(CLIENT)
   )
   target_link_libraries(${TARGET_CLIENT} ${LIBS_CLIENT})
 
+  set(LUABRIDGE_INCLUDE_DIR src/engine/external/luabridge) # cringe xd
   target_include_directories(${TARGET_CLIENT} PRIVATE
     ${CURL_INCLUDE_DIRS}
     ${FREETYPE_INCLUDE_DIRS}
@@ -1883,6 +1882,7 @@ if(CLIENT)
     ${WAVPACK_INCLUDE_DIRS}
     ${FFMPEG_INCLUDE_DIRS}
     ${LUA_INCLUDE_DIRS}
+    ${LUABRIDGE_INCLUDE_DIR}
 
     ${PLATFORM_CLIENT_INCLUDE_DIRS}
   )
